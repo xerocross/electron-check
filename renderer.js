@@ -1,3 +1,16 @@
-// This file is required by the index.html file and will
-// be executed in the renderer process for that window.
-// All of the Node.js APIs are available in this process.
+const {ChecklistApp} = require("./check-desktop");
+const { remote, BrowserWindow } = require('electron')
+const currentWindow = remote.getCurrentWindow()
+const Vue = require("vue");
+
+currentWindow.webContents.once('dom-ready', () => {
+       new Vue({
+        el : "#checklist-app",
+        components : {
+            ChecklistApp
+        },
+        render : function (createElement) {
+            return createElement(ChecklistApp);
+        }
+    });
+});
